@@ -1,0 +1,14 @@
+this file contains the DB queries used to create/read/update/delete DB, tables, procedures, indices etc
+
+MOTIVE : to use as many different DB concepts with PHP as we can
+
+*************************
+***database structure****
+*************************
+
+tables : 
+	adminbase : contains details about the admin users with roles, later we can edit these roles accordingly
+		adminid (not null auto_increment int), adminname (varchar-255), adminpassword (varchar-255), adminrole (varchar-1)
+	userbase : contains details of the users 
+		userid (not null auto_increment int), username (varchar-255), useremail (varchar-255), userDOB (date), userage( 
+		usergender (varchar-1), 
