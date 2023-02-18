@@ -6,6 +6,7 @@
 //after logging in the user will land at the user's home page with his/her details mentioned there
 //in the footer of the landing page we have the admin login option which will be used by the admin to login and see all the users in the database
 echo "hello";
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -15,6 +16,12 @@ echo "hello";
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PHPCrudWebsite</title>
+
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lato:wght@300;400;700&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
   <header class="header">
@@ -23,8 +30,12 @@ echo "hello";
     </div>
     <div class="headerdivmenu">
       <nav class="navmenu">
-        <li class="navitem">register</li>
-        <li class="navitem">login</li>
+        <li class="navitem">
+          <a href="./userregister.php">registration</a>
+        </li>
+        <li class="navitem">
+          <a href="./userlogin.php">login</a>
+        </li>
         <li class="navitem">about us</li>
         <li class="navitem">contact us</li>
       </nav>
@@ -36,16 +47,18 @@ echo "hello";
         <button class="heroactionbutton"></button>
       </div>
     </main>
-    <section>
+    <section class="container">
       <form action="" method="post" class="newsletter">
         <label for="">enter your email to receive our newsletter</label>
         <input type="text" name="newsletteremail" placeholder="enter email here" value="">
       </form>
     </section>
-    <section></section>
+    <section class="container"></section>
     <aside></aside>
     <footer>
-      <div class="footerdiv"></div>
+      <div class="footerdiv">
+        <a href="./adminlogin.php">adminlogin</a>
+      </div>
       <div class="footerdiv"></div>
       <div class="footerdiv"></div>
       <div class="footerdiv"></div>

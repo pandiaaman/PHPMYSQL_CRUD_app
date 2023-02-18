@@ -35,3 +35,4 @@ insert into `phpcrudappdb`.`admintable`(adminname,adminemail,adminpassword,admin
 insert into `phpcrudappdb`.`admintable`(adminname,adminemail,adminpassword,adminrole) VALUES('adminayaz','adminayaz@gmail.com','ayazpass','admin'); 
 
 
+UPDATE `phpcrudappdb`.`admintable` SET `adminemail` = 'pandiaaman16@gmail.com' where `adminname` = 'adminaman';

@@ -7,6 +7,35 @@
 //there will be a back button with which the user can go back to the registration page with all the details intact from last session
 
 //now, here the admin will also be tested on login, so check if the session variable is having admin as the user or other users are coming in
+session_start();
+echo $_SESSION['message'];
+echo $_SESSION['otp'];
+echo "</br>";
+echo $_SESSION['adminemail'];
 
+if(isset($_POST['otpsubmit']) && isset($_POST['otpinput'])){
+  echo $_POST['otpinput'];
+  if($_SESSION['otp'] == $_POST['otpinput']){
+    echo "otp is correct";
+  }
+  else{
+    echo " otp is incorrect";
+  }
+}
 
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTP check</title>
+</head>
+<body>
+  <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+    <input type="text" name="otpinput" placeholder="enter otp here">
+    <input type="submit" name="otpsubmit" value="submit">
+  </form>
+</body>
+</html>
