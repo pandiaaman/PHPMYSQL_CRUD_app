@@ -5,5 +5,5 @@
 //on registering, the user data should be saved in the DB and user will land back on the login page
 //after logging in the user will land at the user's home page with his/her details mentioned there
 //in the footer of the landing page we have the admin login option which will be used by the admin to login and see all the users in the database
-
+echo "hello";
 ?>
