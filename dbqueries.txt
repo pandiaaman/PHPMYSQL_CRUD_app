@@ -1,0 +1,37 @@
+//creating a database
+create database if not exists `phpcrudappdb`;
+
+//using this db
+use `phpcrudappdb`;
+
+//creating a user to connect to this db
+create user `adminuser`@`localhost` identified BY 'adminpassword';
+
+//check grants status for the current user
+SHOW GRANTS FOR `adminuser`@`localhost`;
+
+//providing grants to the DB users
+GRANT ALL ON `phpcrudappdb`.`admintable` TO `adminuser`@`localhost`;   
+SHOW GRANTS FOR `adminuser`@`localhost`;
+
+
+//creating the admintable
+create table `admintable`(
+    adminid int not null AUTO_INCREMENT,
+    adminname varchar(255),
+    adminemail varchar(255),
+    adminpassword varchar(255),
+    adminrole varchar(255),
+    PRIMARY KEY (adminid)
+    );
+
+
+//creating usertable
+
+
+//inserting into admin table
+insert into `phpcrudappdb`.`admintable`(adminname,adminemail,adminpassword,adminrole) VALUES('adminaman','adminaman@gmail.com','amanpass','admin'); 
+insert into `phpcrudappdb`.`admintable`(adminname,adminemail,adminpassword,adminrole) VALUES('adminanisha','adminanisha@gmail.com','anishapass','admin'); 
+insert into `phpcrudappdb`.`admintable`(adminname,adminemail,adminpassword,adminrole) VALUES('adminayaz','adminayaz@gmail.com','ayazpass','admin'); 
+
+

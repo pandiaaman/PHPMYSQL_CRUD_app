@@ -7,6 +7,11 @@
 //you should have a calendar dropdown for the DOB option, once selected the age should automatically populate as the current age
 //format checking
 //username -> should contain only alphanumerics, no special chars, can not start with a number
+//userfirstname
+//userlastname
+//userimage
+//userdob
+//userregistereddate
 //email -> must contain @ and .com at the end
 //gender -> this will be a radio button with options of M(male), F(female), Q(queer), O(other)
 //password -> has to be atleast 8 chars and atmost 12 chars -> must contain a smallcase letter, an uppercase letter and a number and a special char
