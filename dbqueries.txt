@@ -36,3 +36,10 @@ insert into `phpcrudappdb`.`admintable`(adminname,adminemail,adminpassword,admin
 
 
 UPDATE `phpcrudappdb`.`admintable` SET `adminemail` = 'pandiaaman16@gmail.com' where `adminname` = 'adminaman';
+
+//GRANTing permissions to usertable
+GRANT ALL ON `phpcrudappdb`.`usertable` TO `adminuser`@`localhost`;
+SHOW GRANTS FOR `adminuser`@`localhost`;
+
+//inserting into user table
+INSERT INTO usertable(userfirstname,userlastname,username,usergender,useremail,userage,userpassword) VALUES('ayaz','zargham','zarghamayaz','M','ayazargham@gmail.com','23','password');

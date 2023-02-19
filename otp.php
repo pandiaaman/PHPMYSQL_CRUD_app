@@ -17,6 +17,7 @@ if(isset($_POST['otpsubmit']) && isset($_POST['otpinput'])){
   echo $_POST['otpinput'];
   if($_SESSION['otp'] == $_POST['otpinput']){
     echo "otp is correct";
+    header('Location: ./adminindex.php');
   }
   else{
     echo " otp is incorrect";

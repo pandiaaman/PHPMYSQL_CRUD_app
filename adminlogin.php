@@ -33,7 +33,7 @@ if(isset($_POST["adminlogin"]) && isset($_POST["adminname"]) && isset($_POST["ad
     $adminemail = $res->fetchColumn(2); //since the adminemail is the third column
 
     $_SESSION['adminemail'] = $adminemail;
-
+    $_SESSION['adminname'] = $_POST['adminname'];
     // send email
     mail($adminemail,"OTP for website login",$msg);
 
