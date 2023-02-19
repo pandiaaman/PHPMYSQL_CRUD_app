@@ -13,6 +13,7 @@ if(isset($_SESSION['adminname'])){
 require_once('./pdo.php');
 echo "welcome to your home page " . $_SESSION['adminname'];
 }
+if(isset($_SESSION['adminname'])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +25,10 @@ echo "welcome to your home page " . $_SESSION['adminname'];
 </head>
 <body>
     <h3>all results in DB</h3>
+    <button><a href="./adminadduser.php?">add user</a></button>
+
+    <button><a href="./logout.php?">logout</a></button>
+
     <?php
       $sqlselectquery = 'SELECT * FROM `phpcrudappdb`.`usertable`';
       $res = $conn->prepare($sqlselectquery);
@@ -53,8 +58,9 @@ echo "welcome to your home page " . $_SESSION['adminname'];
        
     ?>
       <tr>
-        <td><?= $row['userfirstname'] ?></td>
+        
         <td><?= $row['userid'] ?></td>
+        <td><?= $row['userfirstname'] ?></td>
         <td><?= $row['userlastname'] ?></td>
         <td><?= $row['username'] ?></td>
         <td><?= $row['useremail'] ?></td>
@@ -79,3 +85,6 @@ echo "welcome to your home page " . $_SESSION['adminname'];
 
 </body>
 </html>
+<?php
+}
+?>
