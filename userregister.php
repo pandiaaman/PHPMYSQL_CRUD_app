@@ -22,4 +22,75 @@
 //if there is any issue with the registration, provide with the correct flash message and ask the user to correct those details
 //
 
+session_start();
+
+
+
+// print_r ($_POST);
+if(isset($_POST['userreg']) && isset($_POST['userfirstname']) && isset($_POST['userlastname']) && isset($_POST['useremail']) && isset($_POST['userpassword'])){
+  require_once('./pdo.php');
+
+  $_POST['userage'] = 1;
+
+
+  $userfirstname = $_POST['userfirstname'];
+  $userlastname = $_POST['userlastname'];
+  $username = $_POST['username'];
+  $userage = $_POST['userage'];
+  $userdob = $_POST['userdob'];
+  $userimage = $_POST['userimage'];
+  $userpassword = $_POST['userpassword'];
+  $useremail = $_POST['useremail'];
+  $usergender = $_POST['usergender'];
+
+
+  $sqlcheckusername = "SELECT * FROM `phpcrudappdb`.`usertable` WHERE `username`=?;";
+  $datainput = [$_POST['username']];
+  $res = $conn->prepare($sqlcheckusername);
+  $res->execute($datainput);
+
+  echo $userdob;
+  // if($res->rowCount() == 1){
+  //   $sqlinsert = "INSERT INTO `phpcrudappdb`.`usertable`(`userfirstname`,`userlastname`,`username`,`userage`,`usergender`,`useremail`,`usergender`,`userimage`,`userdob`) VALUES(?,?,?,?,?,?,?,?,?);";
+  //   $inputdata = [$userfirstname,$userlastname,$username,$userage,$usergender,$useremail,$usergender,$userimage,$userdob];
+  //   $result = $conn->prepare($sqlinsert);
+  //   $result->execute($inputdata);
+
+  //   if($result){
+  //     $_SESSION['username'] = $userfirstname;
+  //     $message = "please login";
+  //     header('Location: ./userlogin.php');
+  //   }
+  //   else{
+  //     header('Location: ./userregister.php');
+  //   }
+  // }
+}
+
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User registration</title>
+</head>
+<body>
+  <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+    <label>username</label> <input type="text" name="username" id="username" required></br>
+    <label>first name</label> <input type="text" name="userfirstname" id="userfirstname" required></br>
+    <label>last name</label> <input type="text" name="userlastname" id="userlastname" required></br>
+    <label>email</label> <input type="email" name="useremail" id="user" required></br>
+    <label>date of birth</label> <input type="date" name="userdob" id="userdob" required></br>
+    <label>gender</label> </br>
+    Male<input type="radio" name="usergender" value="M">
+    Female<input type="radio" name="usergender" value="F">
+    Other<input type="radio" name="usergender" value="O"> </br>
+    <label>upload image</label> <input type="file" name="userimage" id="user" accept="image/*"></br>
+    <label>password</label> <input type="password" name="userpassword" id="userpassword" required></br>
+    <input type="submit" name="userreg" value="Register">
+  </form>
+</body>
+</html>
