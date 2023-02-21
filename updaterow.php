@@ -2,6 +2,7 @@
 //this gives the user option to update the row selected
 session_start();
 
+require_once('./nav.php');
 require_once('./pdo.php');
 $incominguserid = $_GET['userid'];
 

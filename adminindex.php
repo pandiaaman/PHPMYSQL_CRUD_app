@@ -9,6 +9,8 @@
 
 session_start();
 //print_r($_POST);
+require_once('./nav.php');
+
 if(isset($_SESSION['adminname'])){
 require_once('./pdo.php');
 echo "welcome to your home page " . $_SESSION['adminname'];
@@ -24,6 +26,9 @@ if(isset($_SESSION['adminname'])){
   <title>admin index</title>
 </head>
 <body>
+<?php 
+    if($_SESSION['user'] == 'admin'){
+  ?>
     <h3>all results in DB</h3>
     <button><a href="./adminadduser.php?">add user</a></button>
 
@@ -86,5 +91,6 @@ if(isset($_SESSION['adminname'])){
 </body>
 </html>
 <?php
+}
 }
 ?>

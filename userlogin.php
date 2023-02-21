@@ -6,6 +6,10 @@
 //if login is successful then we enter the user's home page where we see their details
 session_start();
 
+if(isset($_SESSION['flashmessage'])){
+  echo $_SESSION['flashmessage'] . "</br>";
+  unset($_SESSION['flashmessage']);
+}
 //print_r($_POST);
 if(isset($_POST['username']) && isset($_POST['userpass']) && isset($_POST['userlogin'])){
   // echo " hello there " . $_POST['username'];
@@ -25,12 +29,18 @@ if(isset($_POST['username']) && isset($_POST['userpass']) && isset($_POST['userl
   if($rowcount ==1){
     $otp = rand(1111,9999);
     // echo "</br>" . $otp;
+    
     $_SESSION['otp'] = $otp;
     $_SESSION['user'] = 'user';
+
+    $_SESSION['username'] = $username;
+    $_SESSION['userpass'] = $userpass;
     // echo " </br>" . $_SESSION['user'];
     header('Location: ./otp.php');
   }
   else{
+    $message = "check your username and password";
+    $_SESSION['flashmessage'] = $message;
     header('Location: ./userlogin.php');
   }
 }

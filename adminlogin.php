@@ -5,6 +5,11 @@
 //if incorrect otp then go to home page
 session_start();
 
+if(isset($_SESSION['flashmessage'])){
+  echo $_SESSION['flashmessage'] . "</br>";
+  unset($_SESSION['flashmessage']);
+}
+
 if(isset($_POST["adminlogin"]) && isset($_POST["adminname"]) && isset($_POST["adminpassword"])){
   include_once('./pdo.php');
   $sql = "select * from `phpcrudappdb`.`admintable` where adminname=? and adminpassword=?";
@@ -13,8 +18,8 @@ if(isset($_POST["adminlogin"]) && isset($_POST["adminname"]) && isset($_POST["ad
   $res->execute($dataset);
 
   if($res->rowCount() == 1){
-    $message =  "you can login";
-    $_SESSION['message'] = $message; 
+   
+    $_SESSION['user'] = 'admin'; 
     $otp = rand(1111,9999);
     $_SESSION['otp'] = $otp;
 
@@ -23,8 +28,6 @@ if(isset($_POST["adminlogin"]) && isset($_POST["adminname"]) && isset($_POST["ad
 
     // use wordwrap() if lines are longer than 70 characters
     $msg = wordwrap($msg,70);
-
-    
 
     $sql1 = "select * from `phpcrudappdb`.`admintable` where adminname=? and adminpassword=?";
     $dataset=[$_POST['adminname'], $_POST['adminpassword']];
@@ -40,13 +43,14 @@ if(isset($_POST["adminlogin"]) && isset($_POST["adminname"]) && isset($_POST["ad
     header('Location: ./otp.php');
     // header('Location: ./otp.php');
   }
-  else{
-    echo " please check your id and password";
-    header('Location : ./adminlogin.php');
+  else if($res->rowCount() == 0){
+    $message =  " please check your id and password";
+    $_SESSION['flashmessage']  = $message;
+    header('Location: ./adminlogin.php');
   }
-  
-  return;
+
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -67,8 +71,8 @@ if(isset($_POST["adminlogin"]) && isset($_POST["adminname"]) && isset($_POST["ad
   <header></header>
   <section>
     <form method="post" action="<?php $_SERVER['PHP_SELF'] ?>" class="adminloginform">
-      <input type="text" name="adminname" id="adminname" placeholder="enter username here">
-      <input type="password" name="adminpassword" id="adminpassword" placeholder="enter password here">
+      <input type="text" name="adminname" id="adminname" placeholder="enter username here" required>
+      <input type="password" name="adminpassword" id="adminpassword" placeholder="enter password here" required>
       <input type="submit" class="admin-login-button" name="adminlogin" value="submit">
     </form>
   </section>
