@@ -43,3 +43,9 @@ SHOW GRANTS FOR `adminuser`@`localhost`;
 
 //inserting into user table
 INSERT INTO usertable(userfirstname,userlastname,username,usergender,useremail,userage,userpassword) VALUES('ayaz','zargham','zarghamayaz','M','ayazargham@gmail.com','23','password');
+
+
+//error type:
+Fatal error: Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1142 SELECT command denied to user 'adminuser'@'localhost' for table `phpcrudappdb`.`usertable` in C:\xampp\htdocs\PHPMYSQL_CRUD_app\PHPMYSQL_CRUD_app\userlogin.php:21 Stack trace: #0 C:\xampp\htdocs\PHPMYSQL_CRUD_app\PHPMYSQL_CRUD_app\userlogin.php(21): PDOStatement->execute(Array) #1 {main} thrown in C:\xampp\htdocs\PHPMYSQL_CRUD_app\PHPMYSQL_CRUD_app\userlogin.php on line 21
+//to resolve, we grant access
+GRANT ALL ON `phpcrudappdb`.`usertable` TO `adminuser`@`localhost`; 
