@@ -8,20 +8,44 @@
 
 //now, here the admin will also be tested on login, so check if the session variable is having admin as the user or other users are coming in
 session_start();
-echo $_SESSION['message'];
+echo $_SESSION['user'];
 echo $_SESSION['otp'];
 echo "</br>";
-echo $_SESSION['adminemail'];
+//echo $_SESSION['adminemail'];
+
+if(isset($_SESSION['flashmessage'])){
+  echo "</br>" . $_SESSION['flashmessage'];
+  unset($_SESSION['flashmessage']);
+}
+
+if(isset($_POST['getnewotp'])){
+  generatenewotp();
+  header('Location: ./otp.php');
+}
 
 if(isset($_POST['otpsubmit']) && isset($_POST['otpinput'])){
-  echo $_POST['otpinput'];
+  
   if($_SESSION['otp'] == $_POST['otpinput']){
     echo "otp is correct";
-    header('Location: ./adminindex.php');
+    if($_SESSION['user'] == 'admin'){
+      header('Location: ./adminindex.php');
+    }
+    if($_SESSION['user'] == 'user'){
+      header('Location: ./userindex.php');
+    }
   }
   else{
-    echo " otp is incorrect";
+    $incorrectotpmessage =  " otp is incorrect";
+    $_SESSION['flashmessage'] = $incorrectotpmessage;
+    generatenewotp();
+    //mail this to the user instead of printing it in the beginning of the screen
+    header('Location: ./otp.php');
   }
+
+}
+
+function generatenewotp(){
+  $_SESSION['otp'] = rand(1111,9999);
 }
 
 ?>
@@ -37,6 +61,7 @@ if(isset($_POST['otpsubmit']) && isset($_POST['otpinput'])){
   <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
     <input type="text" name="otpinput" placeholder="enter otp here">
     <input type="submit" name="otpsubmit" value="submit">
+    <input type="submit" name="getnewotp" value="get new otp">
   </form>
 </body>
 </html>
