@@ -1,9 +1,9 @@
 <?php
 $servername = "localhost";
-$username = "amanuser";
-$dbname = "php_crud_app";
+$username = "adminuser";
+$dbname = "phpcrudappdb";
 $portno = "3306";
-$password = "serverpassword";
+$password = "adminpassword";
 
 try{
   $conn = new PDO("mysql:host=$servername;dbname=$dbname;port=$portno",$username,$password);
