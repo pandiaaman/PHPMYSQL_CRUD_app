@@ -24,13 +24,16 @@
 
 session_start();
 
-
+if(isset($_SESSION['flashmessage'])){
+  echo $_SESSION['flashmessage'];
+  unset($_SESSION['flashmessage']);
+}
 
 // print_r ($_POST);
 if(isset($_POST['userreg']) && isset($_POST['userfirstname']) && isset($_POST['userlastname']) && isset($_POST['useremail']) && isset($_POST['userpassword'])){
   require_once('./pdo.php');
 
-  $_POST['userage'] = 1;
+ // $_POST['userage'] = 1;
 
 
   $userfirstname = $_POST['userfirstname'];
@@ -49,22 +52,65 @@ if(isset($_POST['userreg']) && isset($_POST['userfirstname']) && isset($_POST['u
   $res = $conn->prepare($sqlcheckusername);
   $res->execute($datainput);
 
-  echo $userdob;
-  // if($res->rowCount() == 1){
-  //   $sqlinsert = "INSERT INTO `phpcrudappdb`.`usertable`(`userfirstname`,`userlastname`,`username`,`userage`,`usergender`,`useremail`,`usergender`,`userimage`,`userdob`) VALUES(?,?,?,?,?,?,?,?,?);";
-  //   $inputdata = [$userfirstname,$userlastname,$username,$userage,$usergender,$useremail,$usergender,$userimage,$userdob];
-  //   $result = $conn->prepare($sqlinsert);
-  //   $result->execute($inputdata);
+  echo $userdob . "<br>";//2023-02-09
+  $date = date("Y-m-d");
+  echo "Today is " . date("Y-m-d") . "<br>";
+  $ageuser = abs($date - $userdob);
 
-  //   if($result){
-  //     $_SESSION['username'] = $userfirstname;
-  //     $message = "please login";
-  //     header('Location: ./userlogin.php');
-  //   }
-  //   else{
-  //     header('Location: ./userregister.php');
-  //   }
-  // }
+  if($ageuser<4){
+    $message = "your age is less than 4";
+    $_SESSION['flashmessage'] = $message;
+    header('Location: ./userregister.php');
+  }
+  if($res->rowCount() == 0){
+    $sqlinsert = "INSERT INTO `phpcrudappdb`.`usertable`(`userfirstname`,`userlastname`,`username`,`userage`,`useremail`,`usergender`,`userimage`,`userdob`) VALUES(?,?,?,?,?,?,?,?);";
+    $inputdata = [$userfirstname,$userlastname,$username,$userage,$useremail,$usergender,$userimage,$userdob];
+    $result = $conn->prepare($sqlinsert);
+    $result->execute($inputdata);
+
+    if($result){
+      $_SESSION['username'] = $userfirstname;
+      if(isset($_SESSION['tempuserfirstname'])){
+        unset($_SESSION['tempflashmessage']);
+        unset($_SESSION['tempuserfirstname']);
+        unset($_SESSION['tempuserlastname']);
+        unset($_SESSION['tempusername']);
+        unset($_SESSION['tempuserage']);
+        unset($_SESSION['tempuserdob']);
+        unset($_SESSION['tempuserimage']);
+        unset($_SESSION['tempuserpassword']);
+        unset($_SESSION['tempuseremail']);
+        unset($_SESSION['tempusergender']);
+      }
+      $message = "please login";
+      header('Location: ./userlogin.php');
+    }
+    else{
+      $message = "issue with adding the row, contact the server administrator";
+      $_SESSION['flashmessage'] = $message;
+      header('Location: ./userregister.php');
+    }
+    
+  }
+  else{
+    $message = "username already exists, please change your username... user's dob: " . $userdob . " today is: " . $date . " and user's age is: " . $ageuser;
+    $_SESSION['flashmessage'] = $message;
+    $_SESSION['tempuserfirstname'] = $_POST['userfirstname'];
+    $_SESSION['tempuserlastname'] = $_POST['userlastname'];
+    $_SESSION['tempusername'] = $_POST['username'];
+    $_SESSION['tempuserage'] = $_POST['userage'];
+    $_SESSION['tempuserdob'] = $_POST['userdob'];
+    $_SESSION['tempuserimage'] = $_POST['userimage'];
+    $_SESSION['tempuserpassword'] = $_POST['userpassword'];
+    $_SESSION['tempuseremail'] = $_POST['useremail'];
+    $_SESSION['tempusergender'] = $_POST['usergender'];
+    ?>
+    <script>
+        alert("your age is : "+ <?= $ageuser?>);
+    </script>
+    <?php
+    header('Location: ./userregister.php');
+  }
 }
 
 ?>
@@ -79,17 +125,17 @@ if(isset($_POST['userreg']) && isset($_POST['userfirstname']) && isset($_POST['u
 </head>
 <body>
   <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
-    <label>username</label> <input type="text" name="username" id="username" required></br>
-    <label>first name</label> <input type="text" name="userfirstname" id="userfirstname" required></br>
-    <label>last name</label> <input type="text" name="userlastname" id="userlastname" required></br>
-    <label>email</label> <input type="email" name="useremail" id="user" required></br>
-    <label>date of birth</label> <input type="date" name="userdob" id="userdob" required></br>
+    <label>username</label> <input type="text" name="username" id="username" value="<?php if(isset($_SESSION['tempusername'])){echo $_SESSION['tempusername'];}else{echo '';} ?>" required></br>
+    <label>first name</label> <input type="text" name="userfirstname" id="userfirstname" value="<?php if(isset($_SESSION['tempuserfirstname'])){echo $_SESSION['tempuserfirstname'];}else{echo '';} ?>" required></br>
+    <label>last name</label> <input type="text" name="userlastname" id="userlastname" value="<?php if(isset($_SESSION['tempuserlastname'])){echo $_SESSION['tempuserlastname'];}else{echo '';} ?>" required></br>
+    <label>email</label> <input type="email" name="useremail" id="user" value="<?php if(isset($_SESSION['tempuser'])){echo $_SESSION['tempuser'];}else{echo '';} ?>" required></br>
+    <label>date of birth</label> <input type="date" name="userdob" id="userdob" value="<?php if(isset($_SESSION['tempuserdob'])){echo $_SESSION['tempuserdob'];}else{echo '';} ?>" required></br>
     <label>gender</label> </br>
     Male<input type="radio" name="usergender" value="M">
     Female<input type="radio" name="usergender" value="F">
     Other<input type="radio" name="usergender" value="O"> </br>
     <label>upload image</label> <input type="file" name="userimage" id="user" accept="image/*"></br>
-    <label>password</label> <input type="password" name="userpassword" id="userpassword" required></br>
+    <label>password</label> <input type="password" name="userpassword" id="userpassword" value="<?php if(isset($_SESSION['tempuserpassword'])){echo $_SESSION['tempuserpassword'];}else{echo '';} ?>" required></br>
     <input type="submit" name="userreg" value="Register">
   </form>
 </body>

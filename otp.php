@@ -8,9 +8,11 @@
 
 //now, here the admin will also be tested on login, so check if the session variable is having admin as the user or other users are coming in
 session_start();
+if(isset($_SESSION['user'])){
 echo $_SESSION['user'];
 echo $_SESSION['otp'];
 echo "</br>";
+}
 //echo $_SESSION['adminemail'];
 
 if(isset($_SESSION['flashmessage'])){
@@ -48,6 +50,7 @@ function generatenewotp(){
   $_SESSION['otp'] = rand(1111,9999);
 }
 
+if(isset($_SESSION['user'])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,3 +68,6 @@ function generatenewotp(){
   </form>
 </body>
 </html>
+<?php
+}
+?>
