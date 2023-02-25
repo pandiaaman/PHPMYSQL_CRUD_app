@@ -5,7 +5,6 @@
 //on registering, the user data should be saved in the DB and user will land back on the login page
 //after logging in the user will land at the user's home page with his/her details mentioned there
 //in the footer of the landing page we have the admin login option which will be used by the admin to login and see all the users in the database
-echo "hello";
 session_start();
 ?>
 
@@ -31,10 +30,10 @@ session_start();
     <div class="headerdivmenu">
       <nav class="navmenu">
         <li class="navitem">
-          <a href="./userregister.php">registration</a>
+          <a href="./user/userregister.php">registration</a>
         </li>
         <li class="navitem">
-          <a href="./userlogin.php">login</a>
+          <a href="./user/userlogin.php">login</a>
         </li>
         <li class="navitem">about us</li>
         <li class="navitem">contact us</li>
@@ -57,7 +56,7 @@ session_start();
     <aside></aside>
     <footer>
       <div class="footerdiv">
-        <a href="./adminlogin.php">adminlogin</a>
+        <a href="./admin/adminlogin.php">adminlogin</a>
       </div>
       <div class="footerdiv"></div>
       <div class="footerdiv"></div>

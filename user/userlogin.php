@@ -14,7 +14,7 @@ if(isset($_SESSION['flashmessage'])){
 if(isset($_POST['username']) && isset($_POST['userpass']) && isset($_POST['userlogin'])){
   // echo " hello there " . $_POST['username'];
 
-  require_once('./pdo.php');
+  require_once('./general/pdo.php');
 
   $username = $_POST['username'];
   $userpass = $_POST['userpass'];
@@ -36,12 +36,12 @@ if(isset($_POST['username']) && isset($_POST['userpass']) && isset($_POST['userl
     $_SESSION['username'] = $username;
     $_SESSION['userpass'] = $userpass;
     // echo " </br>" . $_SESSION['user'];
-    header('Location: ./otp.php');
+    header('Location: ./general/otp.php');
   }
   else{
     $message = "check your username and password";
     $_SESSION['flashmessage'] = $message;
-    header('Location: ./userlogin.php');
+    header('Location: ./user/userlogin.php');
   }
 }
 ?>

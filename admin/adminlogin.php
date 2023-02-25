@@ -11,7 +11,7 @@ if(isset($_SESSION['flashmessage'])){
 }
 
 if(isset($_POST["adminlogin"]) && isset($_POST["adminname"]) && isset($_POST["adminpassword"])){
-  include_once('./pdo.php');
+  include_once('./general/pdo.php');
   $sql = "select * from `phpcrudappdb`.`admintable` where adminname=? and adminpassword=?";
   $dataset=[$_POST['adminname'], $_POST['adminpassword']];
   $res = $conn->prepare($sql);
@@ -40,13 +40,13 @@ if(isset($_POST["adminlogin"]) && isset($_POST["adminname"]) && isset($_POST["ad
     // send email
     mail($adminemail,"OTP for website login",$msg);
 
-    header('Location: ./otp.php');
+    header('Location: ./general/otp.php');
     // header('Location: ./otp.php');
   }
   else if($res->rowCount() == 0){
     $message =  " please check your id and password";
     $_SESSION['flashmessage']  = $message;
-    header('Location: ./adminlogin.php');
+    header('Location: ./admin/adminlogin.php');
   }
 
 }

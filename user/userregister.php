@@ -24,6 +24,7 @@
 
 session_start();
 
+require_once('./general/nav.php');
 if(isset($_SESSION['flashmessage'])){
   echo $_SESSION['flashmessage'];
   unset($_SESSION['flashmessage']);
@@ -31,7 +32,7 @@ if(isset($_SESSION['flashmessage'])){
 
 // print_r ($_POST);
 if(isset($_POST['userreg']) && isset($_POST['userfirstname']) && isset($_POST['userlastname']) && isset($_POST['useremail']) && isset($_POST['userpassword'])){
-  require_once('./pdo.php');
+  require_once('./general/pdo.php');
 
  // $_POST['userage'] = 1;
 
@@ -60,7 +61,7 @@ if(isset($_POST['userreg']) && isset($_POST['userfirstname']) && isset($_POST['u
   if($ageuser<4){
     $message = "your age is less than 4";
     $_SESSION['flashmessage'] = $message;
-    header('Location: ./userregister.php');
+    header('Location: ./user/userregister.php');
   }
   if($res->rowCount() == 0){
     $sqlinsert = "INSERT INTO `phpcrudappdb`.`usertable`(`userfirstname`,`userlastname`,`username`,`userage`,`useremail`,`usergender`,`userimage`,`userdob`) VALUES(?,?,?,?,?,?,?,?);";
@@ -82,13 +83,13 @@ if(isset($_POST['userreg']) && isset($_POST['userfirstname']) && isset($_POST['u
         unset($_SESSION['tempuseremail']);
         unset($_SESSION['tempusergender']);
       }
-      $message = "please login";
-      header('Location: ./userlogin.php');
+
+      header('Location: ./user/userlogin.php');
     }
     else{
       $message = "issue with adding the row, contact the server administrator";
       $_SESSION['flashmessage'] = $message;
-      header('Location: ./userregister.php');
+      header('Location: ./user/userregister.php');
     }
     
   }
@@ -104,12 +105,7 @@ if(isset($_POST['userreg']) && isset($_POST['userfirstname']) && isset($_POST['u
     $_SESSION['tempuserpassword'] = $_POST['userpassword'];
     $_SESSION['tempuseremail'] = $_POST['useremail'];
     $_SESSION['tempusergender'] = $_POST['usergender'];
-    ?>
-    <script>
-        alert("your age is : "+ <?= $ageuser?>);
-    </script>
-    <?php
-    header('Location: ./userregister.php');
+    header('Location: ./user/userregister.php');
   }
 }
 
@@ -140,3 +136,4 @@ if(isset($_POST['userreg']) && isset($_POST['userfirstname']) && isset($_POST['u
   </form>
 </body>
 </html>
+

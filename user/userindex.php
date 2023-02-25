@@ -4,7 +4,7 @@
 //there will be a logout button that logs the user out and lands them back to the index page of the website
 session_start();
 
-require_once('./pdo.php');
+require_once('./general/pdo.php');
 $username = $_SESSION['username'];
 
 $sqlfetch = "SELECT * FROM `phpcrudappdb`.`usertable` WHERE `username`=?;";
@@ -28,7 +28,7 @@ if($rowcount == 1){
 }
 else{
   session_destroy();
-  header('Location: ./index.php');
+  header('Location: ./general/index.php');
 }
 ?>
  
@@ -43,7 +43,7 @@ else{
 </head>
 <body>
   
-  <button><a href="./logout.php">logout</a></button>
+  <button><a href="./general/logout.php">logout</a></button>
 
   <table border=1>
     <tr>

@@ -22,7 +22,7 @@ if(isset($_SESSION['flashmessage'])){
 
 if(isset($_POST['getnewotp'])){
   generatenewotp();
-  header('Location: ./otp.php');
+  header('Location: ./general/otp.php');
 }
 
 if(isset($_POST['otpsubmit']) && isset($_POST['otpinput'])){
@@ -30,10 +30,10 @@ if(isset($_POST['otpsubmit']) && isset($_POST['otpinput'])){
   if($_SESSION['otp'] == $_POST['otpinput']){
     echo "otp is correct";
     if($_SESSION['user'] == 'admin'){
-      header('Location: ./adminindex.php');
+      header('Location: ./admin/dminindex.php');
     }
     if($_SESSION['user'] == 'user'){
-      header('Location: ./userindex.php');
+      header('Location: ./user/userindex.php');
     }
   }
   else{
@@ -41,7 +41,7 @@ if(isset($_POST['otpsubmit']) && isset($_POST['otpinput'])){
     $_SESSION['flashmessage'] = $incorrectotpmessage;
     generatenewotp();
     //mail this to the user instead of printing it in the beginning of the screen
-    header('Location: ./otp.php');
+    header('Location: ./general/otp.php');
   }
 
 }

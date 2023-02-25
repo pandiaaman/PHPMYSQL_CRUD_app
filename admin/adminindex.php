@@ -9,10 +9,10 @@
 
 session_start();
 //print_r($_POST);
-require_once('./nav.php');
+require_once('./general/nav.php');
 
 if(isset($_SESSION['adminname'])){
-require_once('./pdo.php');
+require_once('./general/pdo.php');
 echo "welcome to your home page " . $_SESSION['adminname'];
 }
 if(isset($_SESSION['adminname'])){
@@ -30,9 +30,9 @@ if(isset($_SESSION['adminname'])){
     if($_SESSION['user'] == 'admin'){
   ?>
     <h3>all results in DB</h3>
-    <button><a href="./adminadduser.php?">add user</a></button>
+    <button><a href="./admin/adminadduser.php?">add user</a></button>
 
-    <button><a href="./logout.php?">logout</a></button>
+    <button><a href="./general/logout.php?">logout</a></button>
 
     <?php
       $sqlselectquery = 'SELECT * FROM `phpcrudappdb`.`usertable`';
@@ -76,10 +76,10 @@ if(isset($_SESSION['adminname'])){
         <td><?= $row['userpassword'] ?></td>
         <td><?= $row['userregistereddate'] ?></td>
         <td>
-          <button class="deleterowbutton"><a href="./deleterow.php?userid=<?=$row['userid'] ?>">Delete</a></button>
+          <button class="deleterowbutton"><a href="./admin/admindeleterow.php?userid=<?=$row['userid'] ?>">Delete</a></button>
         </td>
         <td>
-          <button class="updaterowbutton"><a href="./updaterow.php?userid=<?=$row['userid'] ?>">Update</a></button>
+          <button class="updaterowbutton"><a href="./admin/adminupdaterow.php?userid=<?=$row['userid'] ?>">Update</a></button>
         </td>
       </tr>
 
