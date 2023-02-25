@@ -9,17 +9,17 @@
 </head>
 <body>
   <nav>
-    <a href="./general/logout.php">logout</a>
+    <a href="../general/logout.php">logout</a>
     
     <?php
     if(isset($_SESSION['user'])){
       if($_SESSION['user'] == 'user'){
         ?>
-        <a href="./user/userindex.php">go to user home</a>
+        <a href="../user/userindex.php">go to user home</a>
       <?php
       }else if($_SESSION['user'] == 'admin'){
       ?>
-        <a href="./admin/adminindex.php">go to admin home</a>
+        <a href="../admin/adminindex.php">go to admin home</a>
       <?php
       }
     }

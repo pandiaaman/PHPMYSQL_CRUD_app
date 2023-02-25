@@ -5,13 +5,15 @@
 //if incorrect otp then go to home page
 session_start();
 
+require_once('../general/nav.php');
+
 if(isset($_SESSION['flashmessage'])){
   echo $_SESSION['flashmessage'] . "</br>";
   unset($_SESSION['flashmessage']);
 }
 
 if(isset($_POST["adminlogin"]) && isset($_POST["adminname"]) && isset($_POST["adminpassword"])){
-  include_once('./general/pdo.php');
+  include_once('../general/pdo.php');
   $sql = "select * from `phpcrudappdb`.`admintable` where adminname=? and adminpassword=?";
   $dataset=[$_POST['adminname'], $_POST['adminpassword']];
   $res = $conn->prepare($sql);
@@ -40,13 +42,13 @@ if(isset($_POST["adminlogin"]) && isset($_POST["adminname"]) && isset($_POST["ad
     // send email
     mail($adminemail,"OTP for website login",$msg);
 
-    header('Location: ./general/otp.php');
+    header('Location: ../general/otp.php');
     // header('Location: ./otp.php');
   }
   else if($res->rowCount() == 0){
     $message =  " please check your id and password";
     $_SESSION['flashmessage']  = $message;
-    header('Location: ./admin/adminlogin.php');
+    header('Location: ../admin/adminlogin.php');
   }
 
 }

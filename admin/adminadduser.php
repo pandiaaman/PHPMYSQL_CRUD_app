@@ -5,12 +5,11 @@
 //if anything is wrong, we get a flash message with all the details intact
 
 session_start();
-require_once('./general/pdo.php');
+require_once('../general/pdo.php');
 
 
 if(isset($_SESSION['flashmessage'])){
   echo $_SESSION['flashmessage'] . "</br>";
-
   unset($_SESSION['flashmessage']);
 }
 if(isset($_SESSION['tempuserfirstname'])){
@@ -37,7 +36,7 @@ if(isset($_POST["addrow"]) && isset($_SESSION["adminname"]) && isset($_POST['use
       $_SESSION['tempuserpassword'] = $_POST['userpassword'];
       $_SESSION['tempuserregistereddate'] = $_POST['userregistereddate'];
 
-      header('Location: ./admin/adminadduser.php');
+      header('Location: ../admin/adminadduser.php');
   }
   else{
   $sqlinsert = "INSERT INTO `phpcrudappdb`.`usertable`(`userfirstname`,`userlastname`,`username`,`useremail`,`usergender`,`userage`,`userpassword`,`userregistereddate`) 
@@ -56,7 +55,7 @@ if(isset($_POST["addrow"]) && isset($_SESSION["adminname"]) && isset($_POST['use
           unset($_SESSION['tempuserpassword']);
           unset($_SESSION['tempuserregistereddate']);
         }
-      header('Location: ./admin/adminindex.php');
+      header('Location: ../admin/adminindex.php');
     }
   }
 }

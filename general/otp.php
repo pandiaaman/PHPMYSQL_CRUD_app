@@ -22,7 +22,7 @@ if(isset($_SESSION['flashmessage'])){
 
 if(isset($_POST['getnewotp'])){
   generatenewotp();
-  header('Location: ./general/otp.php');
+  header('Location: ../general/otp.php');
 }
 
 if(isset($_POST['otpsubmit']) && isset($_POST['otpinput'])){
@@ -30,10 +30,10 @@ if(isset($_POST['otpsubmit']) && isset($_POST['otpinput'])){
   if($_SESSION['otp'] == $_POST['otpinput']){
     echo "otp is correct";
     if($_SESSION['user'] == 'admin'){
-      header('Location: ./admin/dminindex.php');
+      header('Location: ../admin/adminindex.php');
     }
     if($_SESSION['user'] == 'user'){
-      header('Location: ./user/userindex.php');
+      header('Location: ../user/userindex.php');
     }
   }
   else{

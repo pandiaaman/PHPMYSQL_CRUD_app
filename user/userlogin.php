@@ -6,6 +6,8 @@
 //if login is successful then we enter the user's home page where we see their details
 session_start();
 
+require_once('../general/nav.php');
+
 if(isset($_SESSION['flashmessage'])){
   echo $_SESSION['flashmessage'] . "</br>";
   unset($_SESSION['flashmessage']);
@@ -14,7 +16,7 @@ if(isset($_SESSION['flashmessage'])){
 if(isset($_POST['username']) && isset($_POST['userpass']) && isset($_POST['userlogin'])){
   // echo " hello there " . $_POST['username'];
 
-  require_once('./general/pdo.php');
+  require_once('../general/pdo.php');
 
   $username = $_POST['username'];
   $userpass = $_POST['userpass'];
@@ -36,12 +38,12 @@ if(isset($_POST['username']) && isset($_POST['userpass']) && isset($_POST['userl
     $_SESSION['username'] = $username;
     $_SESSION['userpass'] = $userpass;
     // echo " </br>" . $_SESSION['user'];
-    header('Location: ./general/otp.php');
+    header('Location: ../general/otp.php');
   }
   else{
     $message = "check your username and password";
     $_SESSION['flashmessage'] = $message;
-    header('Location: ./user/userlogin.php');
+    header('Location: ../user/userlogin.php');
   }
 }
 ?>

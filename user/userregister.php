@@ -24,7 +24,7 @@
 
 session_start();
 
-require_once('./general/nav.php');
+require_once('../general/nav.php');
 if(isset($_SESSION['flashmessage'])){
   echo $_SESSION['flashmessage'];
   unset($_SESSION['flashmessage']);
@@ -32,7 +32,7 @@ if(isset($_SESSION['flashmessage'])){
 
 // print_r ($_POST);
 if(isset($_POST['userreg']) && isset($_POST['userfirstname']) && isset($_POST['userlastname']) && isset($_POST['useremail']) && isset($_POST['userpassword'])){
-  require_once('./general/pdo.php');
+  require_once('../general/pdo.php');
 
  // $_POST['userage'] = 1;
 
@@ -84,12 +84,12 @@ if(isset($_POST['userreg']) && isset($_POST['userfirstname']) && isset($_POST['u
         unset($_SESSION['tempusergender']);
       }
 
-      header('Location: ./user/userlogin.php');
+      header('Location: ../user/userlogin.php');
     }
     else{
       $message = "issue with adding the row, contact the server administrator";
       $_SESSION['flashmessage'] = $message;
-      header('Location: ./user/userregister.php');
+      header('Location: ../user/userregister.php');
     }
     
   }
@@ -105,7 +105,7 @@ if(isset($_POST['userreg']) && isset($_POST['userfirstname']) && isset($_POST['u
     $_SESSION['tempuserpassword'] = $_POST['userpassword'];
     $_SESSION['tempuseremail'] = $_POST['useremail'];
     $_SESSION['tempusergender'] = $_POST['usergender'];
-    header('Location: ./user/userregister.php');
+    header('Location: ../user/userregister.php');
   }
 }
 
