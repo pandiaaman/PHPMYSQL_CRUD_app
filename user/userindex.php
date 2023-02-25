@@ -4,8 +4,15 @@
 //there will be a logout button that logs the user out and lands them back to the index page of the website
 session_start();
 
+if(isset($_SESSION['flashmessage'])){
+  echo $_SESSION['flashmessage'];
+  unset($_SESSION['flashmessage']);
+}
+
 require_once('../general/pdo.php');
 $username = $_SESSION['username'];
+
+require_once('../general/nav.php');
 
 $sqlfetch = "SELECT * FROM `phpcrudappdb`.`usertable` WHERE `username`=?;";
 $dataset = [$_SESSION['username']];
@@ -25,11 +32,7 @@ if($rowcount == 1){
   $fetcheduserage = $row['userage'];
   $fetcheduserdob = $row['userdob'];
   $fetchedusergender = $row['usergender'];
-}
-else{
-  session_destroy();
-  header('Location: ../general/index.php');
-}
+
 ?>
  
 
@@ -43,8 +46,7 @@ else{
 </head>
 <body>
   
-  <button><a href="../general/logout.php">logout</a></button>
-
+<button ><a href="../general/userOrAdminUpdateRow.php?username=<?=$fetchedusername?>">Update my details</a></button>
   <table border=1>
     <tr>
       <td>fetchedusername</td>
@@ -71,3 +73,12 @@ else{
 
 </body>
 </html>
+
+<?php
+}
+else{
+  session_destroy();
+  header('Location: ../index.php');
+}
+
+?>

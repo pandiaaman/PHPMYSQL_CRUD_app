@@ -8,6 +8,11 @@
 //we have a logout button in this page that logs out the admin
 
 session_start();
+
+if(isset($_SESSION['flashmessage'])){
+  echo $_SESSION['flashmessage'];
+  unset($_SESSION['flashmessage']);
+}
 //print_r($_POST);
 require_once('../general/nav.php');
 
@@ -30,7 +35,7 @@ if(isset($_SESSION['adminname'])){
     if($_SESSION['user'] == 'admin'){
   ?>
     <h3>all results in DB</h3>
-    <button><a href="../admin/adminadduser.php?">add user</a></button>
+    <button><a href="../general/userregisteradminadduser.php?">add user</a></button>
 
     <button><a href="../general/logout.php?">logout</a></button>
 
@@ -76,10 +81,10 @@ if(isset($_SESSION['adminname'])){
         <td><?= $row['userpassword'] ?></td>
         <td><?= $row['userregistereddate'] ?></td>
         <td>
-          <button class="deleterowbutton"><a href="../admin/admindeleterow.php?userid=<?=$row['userid'] ?>">Delete</a></button>
+          <button class="deleterowbutton" onclick="confirmAction(event)"><a href="../admin/admindeleterow.php?userid=<?=$row['userid'] ?>">Delete</a></button>
         </td>
         <td>
-          <button class="updaterowbutton"><a href="../admin/adminupdaterow.php?userid=<?=$row['userid'] ?>">Update</a></button>
+          <button class="updaterowbutton"><a href="../general/userOrAdminUpdateRow.php?username=<?=$row['username'] ?>">Update</a></button>
         </td>
       </tr>
 
@@ -93,4 +98,18 @@ if(isset($_SESSION['adminname'])){
 <?php
 }
 }
+else{
+  header('Location: ../index.php');
+}
 ?>
+ <script>
+      // The function below will start the confirmation dialog
+      function confirmAction(event) {
+        let confirmAction = confirm("Are you sure to delete this record?");
+        if (confirmAction) {
+        } else {
+          event.preventDefault();
+          alert("Delete canceled");
+        }
+      }
+    </script>

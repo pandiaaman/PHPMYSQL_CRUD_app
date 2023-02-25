@@ -30,7 +30,7 @@ session_start();
     <div class="headerdivmenu">
       <nav class="navmenu">
         <li class="navitem">
-          <a href="./user/userregister.php">registration</a>
+          <a href="./general/userregisteradminadduser.php">registration</a>
         </li>
         <li class="navitem">
           <a href="./user/userlogin.php">login</a>
